@@ -1,0 +1,48 @@
+footer {
+    background: #c9c9c9;
+}
+
+body {
+
+
+    .fullscreen {
+        height: 100vh;
+        display: flex;
+        width: 100%;
+
+        .boxcenter {
+            padding: 30px 70px;
+            align-items: center;
+            justify-items: center;
+            margin: auto;
+
+        }
+
+
+    }
+
+    .bartop {
+        margin-top: 30px;
+        border-bottom: 1px solid #666;
+        margin-bottom: 30ox;
+    }
+
+    .bbcontainer {
+        height: 100vh;
+    }
+
+    .containerBody {
+        margin-top: 50px;
+        margin-bottom: 15px;
+
+        .boximg {
+            margin: 10px;
+        }
+
+        @media (max-width:517px) {
+            display: flex;
+            justify-items: center;
+        }
+    }
+
+}

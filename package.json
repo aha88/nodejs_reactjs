@@ -1,0 +1,19 @@
+{
+  "name": "crud_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "fe": "cd client && npm run dev",
+    "be": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run fe\" \"npm run be\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.0.0",
+    "dotenv": "^16.4.5",
+    "knex": "^3.1.0"
+  }
+}
