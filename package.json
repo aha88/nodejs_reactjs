@@ -6,14 +6,14 @@
   "scripts": {
     "fe": "cd client && npm run dev",
     "be": "cd backend && npm run dev",
-    "dev": "concurrently \"npm run fe\" \"npm run be\""
+    "dev": "concurrently \"npm run fe\" \"npm run be\"",
+    "setup": "concurrently \"npm install\" \"cd backend && npm install\" \"cd client && npm install\" \"cd backend && npx knex migrate:latest && npx knex seed:run\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "concurrently": "^9.0.0",
-    "dotenv": "^16.4.5",
-    "knex": "^3.1.0"
+    "dotenv": "^16.4.5"
   }
 }
