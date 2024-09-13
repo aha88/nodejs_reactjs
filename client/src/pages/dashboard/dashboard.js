@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
-import {customerData, sessionV, tokenV } from '@/store/authuser';
+import {customersData, sessionV, tokenV } from '@/store/authuser';
 import  { useRouter } from 'next/router';
 import MyDataTable from '@/component/myTable';
 import { CCardTitle, CCol, CContainer, CRow } from '@coreui/react';
@@ -15,33 +15,36 @@ const Dashboard = () => {
     const router = useRouter();
 
     useEffect(() => {
-        const fetchData = async () => {
-            const token = tokenV.value ?? sessionStorage.getItem('tk');
+        if (customersData.value == null ){
+            const fetchData = async () => {
+                const token = tokenV.value ?? sessionStorage.getItem('tk');
+                
+                if (!sessionV.value || !token) {
+                    router.replace('/');
+                    return;
+                }
             
-            if (!sessionV.value || !token) {
-                router.replace('/');
-                return;
-            }
-    
-            try {
-                const response = await axios.get('/api/customers', {
-                    headers: {
-                        'x-token': token,
-                    },
-                });
-                const newData = response.data.data;
-                setData(newData);
-                customerData.value = newData; // Sync with external store
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setError('Error fetching data');
-                setLoading(false);
-            }
-        };
-        
-        fetchData();
-    }, [sessionV.value, tokenV.value, router]);
+                try {
+                    const response = await axios.get('/api/customers', {
+                        headers: {
+                            'x-token': token,
+                        },
+                    });
+                    const newData = response.data.data;
+                    setData(newData);
+                    customersData.value = newData; // Sync with external store
+                    setLoading(false);
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                    setError('Error fetching data');
+                    setLoading(false);
+                }
+            
+            };
+            
+            fetchData();
+        }
+    }, [sessionV.value, tokenV.value, router,loading]);
 
     const handleEdit = (row) => {
         router.push(`../profile/${row.id}`);
@@ -58,7 +61,7 @@ const Dashboard = () => {
                 });
                 const newData = response.data.data;
                 setData(newData);
-                customerData.value = newData; // Sync with external store
+                customersData.value = newData; // Sync with external store
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setError('Error fetching data');
@@ -95,7 +98,6 @@ const Dashboard = () => {
 export default Dashboard;
 
 export async function getServerSideProps(context) {
-    const { token } = context.query; // Capture token from the query string
 
     const data=[];
     return {

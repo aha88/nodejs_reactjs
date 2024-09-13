@@ -7,3 +7,4 @@ export const userID = signal(null);
 export const userData = signal([]);
 
 export const customerData = signal([]);
+export const customersData = signal(null);

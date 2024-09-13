@@ -7,7 +7,7 @@
     "fe": "cd client && npm run dev",
     "be": "cd backend && npm run dev",
     "dev": "concurrently \"npm run fe\" \"npm run be\"",
-    "setup": "concurrently \"npm install\" \"cd backend && npm install\" \"cd client && npm install\" \"cd backend && npx knex migrate:latest && npx knex seed:run\""
+    "setup": "concurrently \"npm install\" \"cd backend && npm install\" \"cd client && npm install\" \"cd backend && npx knex migrate:latest && npx knex seed:run\" \"npm run dev\""
   },
   "keywords": [],
   "author": "",

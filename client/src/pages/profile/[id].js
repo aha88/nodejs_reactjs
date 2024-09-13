@@ -18,7 +18,7 @@ const Customer = ({ userOne }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const token = tokenV.value;  
+            const token = tokenV.value??sessionStorage.getItem('tk');  
             try {
                 const response = await axios.post(`/api/customer`, { id: userOne }, {
                     headers: {
@@ -27,8 +27,6 @@ const Customer = ({ userOne }) => {
                 });
     
                 const customer = response.data[0].data;
-                
-                
                 setData(customer);   
                 customerData.value = customer;  
     

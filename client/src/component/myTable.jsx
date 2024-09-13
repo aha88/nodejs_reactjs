@@ -2,12 +2,12 @@ import { CBadge, CButton } from '@coreui/react';
 import React, { useMemo } from 'react';
 import { useTable, useSortBy } from 'react-table';
 import Swal from 'sweetalert2';
-import { customerData, tokenV } from '@/store/authuser';
+import { customersData, tokenV } from '@/store/authuser';
 import axios from 'axios';
 
 const MyDataTable = ({  onDelete, onEdit }) => {
 
-  const data = customerData.value;
+  const data = customersData.value;
   // Memoize the columns to prevent unnecessary re-renders
   const columns = useMemo(
     () => [

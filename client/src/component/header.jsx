@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { sessionV, tokenV, userID, userData, customerData } from '../store/authuser';
+import { sessionV, tokenV, userID, userData, customersData } from '../store/authuser';
 import axios from 'axios';
 import { CCardText } from '@coreui/react';
 import RegisterCustomer from './register';
@@ -21,7 +21,6 @@ export const Header = ({ data = userData.value }) => {
 
   const signOut = (e) => {
     e.preventDefault();
-
     sessionStorage.clear();
     sessionV.value = null;
     tokenV.value = null;
@@ -88,15 +87,38 @@ export const Header = ({ data = userData.value }) => {
 
         setData(response.data.data);
   
-        customerData.value = await response.data.data;
+        customersData.value = await response.data.data;
       }
     } catch (err) {
       console.error('Error inserting customer or fetching data:', err);
     }
   };
 
-  useEffect(() => {
-    customerData.value
+  useEffect( async() => {
+    console.log(sessionV.value)
+    if(sessionV.value == null && sessionStorage.getItem('tk')){
+    
+      const id = sessionStorage.getItem('id');
+      const token = sessionStorage.getItem('tk');
+
+      try {
+        const dt = await axios.post('/api/user', {id}, {
+          headers: {
+            'x-token': token,
+          }
+        });
+        const dat = dt.data[0].data[0];
+        userData.value = dat;
+      
+      } catch(err){
+        console.log(err)
+      }
+      
+      sessionV.value = true;
+
+    }
+
+    customersData.value
   },[])
   
 
@@ -109,12 +131,12 @@ export const Header = ({ data = userData.value }) => {
           <>
             <CCardText className="text-black">
               <span className="pr-2">{data?.value?.name || 'User'}</span>
-              <Button className="mr-1" color="primary" onClick={toggleModal}>Register</Button>
+              <Button className="mr-1" color="primary" onClick={toggleModal}>Apply New Customer</Button>
               <Button variant="outline-secondary" onClick={signOut}>Sign-out</Button>
             </CCardText>
           </>
           :
-          ''
+          <Button className="mr-1" color="primary" onClick={toggleModal}>Apply New Customer</Button>
         }
 
         {isModalOpen && (
