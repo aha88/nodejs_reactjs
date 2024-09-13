@@ -58,7 +58,7 @@ If you prefer to run each step individually, you can use the following commands:
 5. **Run Application**:
    ```bash
    npm run dev
-   cd ..
+    
    ```
 ---
  
