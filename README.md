@@ -55,5 +55,10 @@ If you prefer to run each step individually, you can use the following commands:
    cd ..
    ```
 
+5. **Run Application**:
+   ```bash
+   npm run dev
+   cd ..
+   ```
 ---
  
